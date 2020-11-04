@@ -1,0 +1,6 @@
+플라스크에서 파이썬 코드 = {}
+플라스크에서 변수 전달 = {{}}
+
+ex)
+1. .py파일에서 render_template("test.html", x = "somthing")
+2. test.html
