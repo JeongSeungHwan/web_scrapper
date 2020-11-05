@@ -30,7 +30,7 @@ def job_detail(num,job_card):
         company = str(company.string)
     company = company.strip()
 
-    return {"No.":num, "title":title, "company":company}
+    return {"No":num, "title":title, "company":company}
 
 
 def extract_data(max_page):

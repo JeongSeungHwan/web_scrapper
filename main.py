@@ -1,6 +1,6 @@
 from indeed import *
 from save import save_to_csv as save
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 
 app = Flask("SuperScrapper")
 
@@ -26,6 +26,21 @@ def report():
         return render_template("report.html", searching = word, length = jobs_len, jobs = jobs)
         
     else :
+        return redirect("/")
+
+@app.route("/export")
+def export():
+    try:
+        word = request.args.get("word")
+        if not word :
+            raise Exception()
+        word = word.upper()
+        jobs = db.get(word)
+        if not jobs:
+            raise Exception()
+        save(jobs, word)
+        return send_file(f"{word}.csv") #파일저장
+    except :
         return redirect("/")
 
 app.run(host="192.168.137.1")
