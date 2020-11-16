@@ -23,9 +23,25 @@ def report():
             jobs = search_job(word)
             db[word] = jobs
         jobs_len = len(jobs)
+        print(db)
         return render_template("report.html", searching = word, length = jobs_len, jobs = jobs)
         
     else :
         return redirect("/")
 
-app.run(host="192.168.137.1")
+@app.route("/export")
+def export():
+    try:
+        word = request.args.get("word")
+        if not word:
+           raise Exception()
+        word = word.upper()
+        jobs = db.get(word)
+        if not jobs :
+            raise Exception()
+        return f"Generate CSV for {word}"
+    except:
+        return redirect("/")
+    
+
+app.run(host="0.0.0.0")
